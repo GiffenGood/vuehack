@@ -8,87 +8,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
         crossorigin="anonymous">
+    <style>
+        .active {
+            color: red;
+        }
+    </style>
 
 </head>
 
 <body>
     <div class="container">
-        <div id="app-7">
-            <ol>
-                <!--
-                    Now we provide each todo-item with the todo object
-                    it's representing, so that its content can be dynamic.
-                    We also need to provide each component with a "key",
-                    which will be explained later.
-                  -->
-                <todo-item v-for="item in groceryList" v-bind:todo="item" v-bind:key="item.id">
-                </todo-item>
-            </ol>
-            <div v-bind:id="dynamicId"></div>
-            <button class="btn" v-bind:disabled="isButtonDisabled">Button</button>
-            <button class="btn" v-on:click="flip">Button</button>
-            <div v-if="isButtonDisabled">
-                {{ getDog }}
-
-            </div>
-            <div>
-                <input type="text" v-model="info"> {{info}}</div>
-            <div v-if="isButtonDisabled">
-                <label>Username</label>
-                <input placeholder="Enter your username" id="test">
-            </div>
-            <div v-else>
-                <label>Email</label>
-                <input placeholder="Enter your email address" id="test2">
-            </div>
+        <div id="example">
+                <my-component></my-component>
         </div>
+
     </div>
 
     <script src="https://unpkg.com/vue"></script>
     <script>
-        Vue.component('todo-item', {
-            props: ['todo'],
-            template: '<li>{{ todo.text }}</li>'
-
+        Vue.component('my-component', {
+            template: '<div>A custom component!</div>'
         })
-        var app7 = new Vue({
-            el: '#app-7',
-            data: {
-                groceryList: [
-                    { id: 0, text: 'Vegetables' },
-                    { id: 1, text: 'Cheese' },
-                    { id: 2, text: 'Dogs' },
-                    { id: 3, text: 'Whatever else humans are supposed to eat' }
-                ],
-                dynamicId: "good",
-                isButtonDisabled: true,
-                message: "testing",
-                info: ""
-
-            },
-            computed: {
-                getDog: function () {
-                    return `dog ${this.message}`;
-                }
-            },
-            methods: {
-                flip: function () {
-                    this.isButtonDisabled = !this.isButtonDisabled;
-                    console.log('flipping', this.isButtonDisabled);
-                },
-            },
-            watch: {
-                info: function () {
-                    this.message = this.info + "1";
-                }
-            },
-            created: function () {
-                // `this` points to the vm instance
-                console.log('a is: ' + this.groceryList[0].text)
-            }
-
-
-        })
+        // create a root instance
+        new Vue({
+            el: '#example'
+        });
     </script>
 
 </body>
