@@ -25,6 +25,14 @@ vue_1.default.component('my-component', comp);
 // create a root instance
 let app = new vue_1.default({
     el: '#example',
+    template: `
+        <div>
+            <my-component v-model="person.name"></my-component> 
+            <my-component v-model="person.age"></my-component> 
+            <br>{{fullName}}
+            <button @click="person.name = 'dogy'">Reset</button>
+        </div>            
+    `,
     data: {
         person: {
             name: "dogby",
