@@ -26,44 +26,8 @@
         </div>
     </div>
 
-    <script src="https://unpkg.com/vue"></script>
-    <script>
-        Vue.component('my-component', {
-            template: `<div>
-                        <input v-bind:value="value" v-on:input="doEmit($event.target.value)" />
-                      </div>`,
-            props: {
-                value: ''
-            },           
-            methods: {
-                doEmit: function (val) {
-                    this.$emit('input', val);
-                }
-            }
-        });
-
-        // create a root instance
-        let app = new Vue({
-            el: '#example',
-            data: {
-                person: {
-                    name: "dogby",
-                    age : 33
-                }
-            },
-            computed : {
-                fullName : function(){
-                    return `${this.person.name}, ${this.person.age}`;
-                }
-            },            
-            methods: {
-                log: function (val) {
-                    console.log('logging', val);
-                }
-            }
-
-        });
-    </script>
+    <script src="./dist/bundle.js"></script>
+    
 
 </body>
 
