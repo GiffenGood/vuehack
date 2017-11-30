@@ -1,9 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const vue_1 = require("vue");
-const util_1 = require("./util");
-util_1.sayHi();
-let comp = vue_1.default.extend({
+vue_1.default.component('child-component', {
+    // this does work, because we are in the right scope
+    template: '<div v-show="show">Child {{show}}</div>',
+    props: {
+        show: false
+    }
+});
+let mycomp = vue_1.default.extend({
     template: `<div>
                 <input v-bind:value="value" v-on:input="doEmit($event.target.value)" />
               </div>`,
@@ -21,7 +26,7 @@ let comp = vue_1.default.extend({
         }
     }
 });
-vue_1.default.component('my-component', comp);
+vue_1.default.component('my-component', mycomp);
 // create a root instance
 let app = new vue_1.default({
     el: '#example',
@@ -30,14 +35,16 @@ let app = new vue_1.default({
             <my-component v-model="person.name"></my-component> 
             <my-component v-model="person.age"></my-component> 
             <br>{{fullName}}
-            <button @click="person.name = 'dogy'">Reset</button>
+            <button @click="person.name = 'dogy'">Reset</button><br>
+            <child-component :show="show"></child-component> <input type="checkbox" v-model="show"/> {{show}}
         </div>            
     `,
     data: {
         person: {
             name: "dogby",
             age: 33
-        }
+        },
+        show: false
     },
     computed: {
         fullName: function () {

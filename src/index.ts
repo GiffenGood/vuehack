@@ -1,9 +1,14 @@
 import Vue from 'vue'
-import { sayHi } from "./util";
 
-sayHi();
+Vue.component('child-component', {
+    // this does work, because we are in the right scope
+    template: '<div v-show="show">Child {{show}}</div>',
+    props : {
+        show: false
+    }
+  })
 
-let comp = Vue.extend( {
+let mycomp = Vue.extend( {
     template: `<div>
                 <input v-bind:value="value" v-on:input="doEmit($event.target.value)" />
               </div>`,
@@ -22,7 +27,7 @@ let comp = Vue.extend( {
     }
 });
 
-Vue.component('my-component',comp);
+Vue.component('my-component',mycomp);
 
 // create a root instance
 let app = new Vue({
@@ -32,14 +37,16 @@ let app = new Vue({
             <my-component v-model="person.name"></my-component> 
             <my-component v-model="person.age"></my-component> 
             <br>{{fullName}}
-            <button @click="person.name = 'dogy'">Reset</button>
+            <button @click="person.name = 'dogy'">Reset</button><br>
+            <child-component :show="show"></child-component> <input type="checkbox" v-model="show"/> {{show}}
         </div>            
     `,
     data: {
         person: {
             name: "dogby",
             age : 33
-        }
+        },
+        show : false
     },
     computed : {
         fullName : function(): string{
@@ -51,6 +58,5 @@ let app = new Vue({
             console.log('logging', val);
         }
     }
-
 });
 
