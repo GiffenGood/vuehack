@@ -19,7 +19,7 @@ let mycomp = Vue.extend( {
        test : function(){
            return "test";
        } 
-    } ,      
+    } ,       
     methods: {
         doEmit: function (val : any) {
             this.$emit('input', val);
